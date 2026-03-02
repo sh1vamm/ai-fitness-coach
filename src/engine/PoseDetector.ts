@@ -28,7 +28,7 @@ export class PoseDetector {
     try {
       const { PoseLandmarker, FilesetResolver } = await import('@mediapipe/tasks-vision');
       const vision = await FilesetResolver.forVisionTasks(
-        'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm'
+        'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.32/wasm'
       );
       this.poseLandmarker = await PoseLandmarker.createFromOptions(vision, {
         baseOptions: {
@@ -47,7 +47,7 @@ export class PoseDetector {
       try {
         const { PoseLandmarker, FilesetResolver } = await import('@mediapipe/tasks-vision');
         const vision = await FilesetResolver.forVisionTasks(
-          'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm'
+          'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.32/wasm'
         );
         this.poseLandmarker = await PoseLandmarker.createFromOptions(vision, {
           baseOptions: {

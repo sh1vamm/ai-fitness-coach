@@ -111,17 +111,21 @@ def get_workouts(user_id: str):
     # Calculate streak
     streak = 0
     if user_workouts:
-        dates = sorted(set(
-            datetime.fromtimestamp(w["startTime"] / 1000).date()
-            for w in user_workouts
-        ), reverse=True)
-        today = datetime.utcnow().date()
-        for i, date in enumerate(dates):
-            delta = (today - date).days
-            if delta <= i + 1:
-                streak += 1
-            else:
-                break
+        try:
+            dates = sorted(set(
+                datetime.fromtimestamp(w["startTime"] / 1000).date()
+                for w in user_workouts
+                if isinstance(w.get("startTime"), (int, float)) and w["startTime"] > 0
+            ), reverse=True)
+            today = datetime.utcnow().date()
+            for i, date in enumerate(dates):
+                delta = (today - date).days
+                if delta <= i + 1:
+                    streak += 1
+                else:
+                    break
+        except (ValueError, OSError):
+            streak = 0
 
     return {"workouts": user_workouts, "streak": streak, "total": len(user_workouts)}
 
