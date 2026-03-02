@@ -1,0 +1,58 @@
+// This is your Prisma schema file
+// Documentation: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String?
+  email        String?   @unique
+  height       Float?
+  weight       Float?
+  fitnessLevel String    @default("intermediate")
+  injuries     String[]
+  goals        String[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  sessions     WorkoutSession[]
+}
+
+model WorkoutSession {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  exercise   String
+  difficulty String
+  startTime  DateTime
+  endTime    DateTime
+  duration   Float
+  repCount   Int      @default(0)
+  score      Float    @default(0)
+  calories   Int      @default(0)
+  corrections String[]
+  reps       Rep[]
+  createdAt  DateTime @default(now())
+
+  @@index([userId, exercise])
+  @@index([userId, createdAt])
+}
+
+model Rep {
+  id            String         @id @default(cuid())
+  sessionId     String
+  session       WorkoutSession @relation(fields: [sessionId], references: [id])
+  repNumber     Int
+  formScore     Float
+  duration      Float
+  minElbowAngle Float?
+  corrections   String[]
+  timestamp     Float
+  createdAt     DateTime       @default(now())
+}

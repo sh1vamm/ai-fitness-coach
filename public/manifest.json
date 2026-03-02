@@ -1,0 +1,16 @@
+{
+  "name": "AI Fitness Coach",
+  "short_name": "FitCoach",
+  "description": "Real-time AI-powered fitness coaching with computer vision",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a14",
+  "theme_color": "#338dff",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
